@@ -1,0 +1,18 @@
+﻿<Window x:Class="GUI.Info"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="Info" Height="300" Width="300">
+    <Grid>
+        <TextBlock TextWrapping="Wrap" HorizontalAlignment="Stretch" TextAlignment="Center" Margin="0,10,0,0"> 
+        MailSender <LineBreak/>
+        Приложение предназначено для рассылки<LineBreak/>
+        электронных писем писем.<LineBreak/>
+        Создано на уроках школы GeekBrains.<LineBreak/>
+        Князев Кирилл Сергеевич<LineBreak/>
+        2018 г.
+</TextBlock>
+        
+        <Button Name="Exit" Height="24" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="57" Margin="50,0,0,50">OK</Button>
+        <Button Name="InfoButton" Height="24" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="57" Margin="0,0,50,50">Link</Button>
+    </Grid>
+</Window>

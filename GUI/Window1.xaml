@@ -1,0 +1,172 @@
+﻿<Window x:Class="GUI.Window1"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
+    xmlns:l ="clr-namespace:GUI"
+    xmlns:lib="clr-namespace:MailSenderLibrary;assembly=MailSenderLibrary"
+    
+   
+    Title="E-mail sender" Height="600" Width="800">
+    <DockPanel>
+        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+            <Menu DockPanel.Dock="Top">
+                <MenuItem Header="Файл">
+                    <MenuItem Header="Создать"/>
+                    <MenuItem Header="Открыть"/>
+                    <MenuItem Header="Сохранить"/>
+                    <MenuItem Header="Закрыть"/>
+                    <Separator/>
+                    <MenuItem Header="Выход"/>
+                </MenuItem>
+                <MenuItem Header="Помощь"/>
+                <l:TabElementControl Height="20" Width ="207"/>
+            </Menu>
+        </StackPanel>
+        <StatusBar DockPanel.Dock="Bottom">
+            <TextBlock>Ready!</TextBlock>
+        </StatusBar>
+        <TabControl>
+            <!--Группа рассылки-->
+            <TabItem Header="Группа рассылки">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <ToolBarTray Grid.Row="0">
+                        <ToolBar FontSize="12">
+
+                            <!--Отправители-->
+                            <TextBlock Text="Отправители" VerticalAlignment="Center" Margin="5,0"/>
+                            <ComboBox Width="150" Margin="5,0" SelectedIndex="0" ItemsSource="{x:Static lib:Senders.Items}">
+
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate DataType="lib:Sender" >
+                                        <StackPanel Orientation="Horizontal">
+                                            <!--<TextBlock>
+                                                Имя: <TextBlock Text="{Binding Name}" Margin="2,0"/>
+                                            </TextBlock>-->
+                                            
+                                            <TextBlock>
+                                                email: <TextBlock Text="{Binding Email}"/>
+                                            </TextBlock>
+                                        </StackPanel>
+
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+
+
+                            <Button ToolTip="Добавить отправителя">
+                                <StackPanel Orientation="Horizontal">
+                                    <!--Image Source="" -->
+                                    <TextBlock Text="Добваить"/>
+                                </StackPanel>
+                            </Button>
+                            <Button ToolTip="Удалить отправителя"  Content="Удалить"></Button>
+                            <!--Image-->
+                            <Button ToolTip="Редактировать" Content="Редактировать"></Button>
+
+                        </ToolBar>
+                        <ToolBar Band="1" FontSize="12">
+                            
+                            <TextBlock Text="Серверы"  VerticalAlignment="Center" Margin="5,0"/>
+                            <!--Серверы-->
+                            <ComboBox Width="150" Margin="5,0"  HorizontalContentAlignment="Left" >
+                                <Label>Список СМТП </Label>
+                            </ComboBox>
+
+
+                            <Button ToolTip="Добавить отправителя">
+                                <StackPanel Orientation="Horizontal">
+                                    <!--Image Source="" -->
+                                    <TextBlock Text="Добваить"/>
+                                </StackPanel>
+                            </Button>
+                            <Button ToolTip="Удалить отправителя"  Content="Удалить"></Button>
+                            <!--Image-->
+                            <Button ToolTip="Редактировать" Content="Редактировать"></Button>
+
+                        </ToolBar>
+                        <ToolBar Band="0" BandIndex="1" Width="auto" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left">
+                            <Button>
+                                <StackPanel>
+                                    <!--Image Height="16" Source="" -->
+                                    <TextBlock Text="Перейти в планировщик"></TextBlock>
+                                </StackPanel>
+                            </Button>
+                        </ToolBar>
+
+                    </ToolBarTray>
+                    <ToolBarTray Grid.Row="1">
+
+                        <ToolBar FontSize="12">
+
+                            <TextBlock Text="Список адресов" VerticalAlignment="Center" Margin="5,0"/>
+                            <Button ToolTip="Добавить отправителя">
+                                <StackPanel Orientation="Horizontal">
+                                    <!--Image Source="" -->
+                                    <TextBlock Text="Добваить"/>
+                                </StackPanel>
+                            </Button>
+                            <Button ToolTip="Удалить отправителя"  Content="Удалить"></Button>
+                            <!--Image-->
+                            <Button ToolTip="Редактировать" Content="Редактировать"></Button>
+
+                        </ToolBar>
+                    </ToolBarTray>
+                    <GroupBox Grid.Row="2" Header="Группы">
+                        <GroupBox.Resources>
+                            <lib:DataBase x:Key="DataBaseObject"/>
+                        </GroupBox.Resources>
+                        <DataGrid ItemsSource="{Binding Recipients, Source={StaticResource DataBaseObject}}" 
+                                  AutoGenerateColumns="False" VerticalGridLinesBrush="LightGray"  HorizontalGridLinesBrush="{x:Null}"
+                                  AlternatingRowBackground="LightBlue">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="ID" Binding="{Binding Id}"/>
+                                <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
+                                <DataGridTextColumn Header="Email" Binding="{Binding Email}"/>
+                                <DataGridTextColumn Header="Comment" Binding="{Binding Comment}" Width="Auto"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </GroupBox>
+                </Grid>
+            </TabItem>
+            <!--Планировщик-->
+            <TabItem Header="Планировщик">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" MinWidth="51.106" />
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0" HorizontalAlignment="Left" Width="192.203">
+                        <Calendar/>
+                        <TextBlock Text="Время"/>
+                        <TextBox/>
+                        <Button Content="Запланировать"/>
+                        <Button Content="Отправить немедленно"/>
+                    </StackPanel>
+                    <GroupBox Grid.Column="1" Header="Список расписания">
+
+                    </GroupBox>
+                </Grid>
+            </TabItem>
+            <!--Редактор писем-->
+            <TabItem Header="Редактор писем">
+                <Grid>
+                    <RichTextBox/>
+                </Grid>
+            </TabItem>
+            <!--Статистика-->
+            <TabItem IsEnabled="False" Header="Статистика"></TabItem>
+            <Grid>
+                <ItemsControl>
+
+                </ItemsControl>
+            </Grid>
+        </TabControl>
+    </DockPanel>
+
+</Window>
