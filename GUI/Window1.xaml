@@ -5,6 +5,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
     xmlns:l ="clr-namespace:GUI"
     xmlns:lib="clr-namespace:MailSenderLibrary;assembly=MailSenderLibrary"
+        xmlns:cx="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:fa="http://schemas.fontawesome.io/icons/"
     
    
     Title="E-mail sender" Height="600" Width="800">
@@ -60,40 +62,38 @@
 
 
                             <Button ToolTip="Добавить отправителя">
-                                <StackPanel Orientation="Horizontal">
-                                    <!--Image Source="" -->
-                                    <TextBlock Text="Добваить"/>
-                                </StackPanel>
+                                <fa:ImageAwesome Height="16" Icon="PlusCircle" Foreground="Lime"></fa:ImageAwesome>
+                                </Button>
+                            <Button ToolTip="Удалить отправителя" >
+                                 <fa:ImageAwesome Height="16" Icon="MinusCircle" Foreground="Red"/>
                             </Button>
-                            <Button ToolTip="Удалить отправителя"  Content="Удалить"></Button>
-                            <!--Image-->
-                            <Button ToolTip="Редактировать" Content="Редактировать"></Button>
+                            <Button ToolTip="Редактировать" >
+                                <fa:ImageAwesome Height="16" Icon="Edit" Foreground="DarkBlue"/>
+                            </Button>
 
                         </ToolBar>
                         <ToolBar Band="1" FontSize="12">
                             
                             <TextBlock Text="Серверы"  VerticalAlignment="Center" Margin="5,0"/>
                             <!--Серверы-->
-                            <ComboBox Name="SMTPComboBox" Width="150" Margin="5,0" HorizontalContentAlignment="Left" Text="SMTP Сервер" AllowDrop="True" IsEditable="True" IsReadOnly="True" ItemsSource="{x:Static lib:SMTP.servers}" />
-                              
+                            <ComboBox Name="SMTPComboBox" Width="150" Margin="5,0" HorizontalContentAlignment="Left" Text="SMTP Сервер" AllowDrop="True" IsEditable="True" IsReadOnly="True" ItemsSource="{x:Static lib:SMTP.servers}"/> >
 
-
-                            <Button ToolTip="Добавить отправителя">
-                                <StackPanel Orientation="Horizontal">
-                                    <!--Image Source="" -->
-                                    <TextBlock Text="Добваить"/>
-                                </StackPanel>
+                            <Button ToolTip="Добавить ">
+                                <fa:ImageAwesome Height="16" Icon="PlusCircle" Foreground="Lime"></fa:ImageAwesome>
                             </Button>
-                            <Button ToolTip="Удалить отправителя"  Content="Удалить"></Button>
-                            <!--Image-->
-                            <Button ToolTip="Редактировать" Content="Редактировать"></Button>
-
+                            <Button ToolTip="Удалить сервер" >
+                                <fa:ImageAwesome Height="16" Icon="MinusCircle" Foreground="Red"/>
+                            </Button>
+                            <Button ToolTip="Редактировать" >
+                                <fa:ImageAwesome Height="16" Icon="Edit" Foreground="DarkBlue"/>
+                            </Button>
                         </ToolBar>
                         <ToolBar Band="0" BandIndex="1" Width="auto" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left">
                             <Button>
                                 <StackPanel>
-                                    <!--Image Height="16" Source="" -->
-                                    <TextBlock Text="Перейти в планировщик"></TextBlock>
+                                    <Button ToolTip="Перейти в планировщик">
+                                        <fa:ImageAwesome Height="16" Icon="ClockOutline"/>
+                                    </Button>
                                 </StackPanel>
                             </Button>
                         </ToolBar>
@@ -104,15 +104,15 @@
                         <ToolBar FontSize="12">
 
                             <TextBlock Text="Список адресов" VerticalAlignment="Center" Margin="5,0"/>
-                            <Button ToolTip="Добавить отправителя">
-                                <StackPanel Orientation="Horizontal">
-                                    <!--Image Source="" -->
-                                    <TextBlock Text="Добваить"/>
-                                </StackPanel>
+                            <Button ToolTip="Добавить адресата">
+                                <fa:ImageAwesome Height="16" Icon="PlusCircle" Foreground="Lime"></fa:ImageAwesome>
                             </Button>
-                            <Button ToolTip="Удалить отправителя"  Content="Удалить"></Button>
-                            <!--Image-->
-                            <Button ToolTip="Редактировать" Content="Редактировать"></Button>
+                            <Button ToolTip="Удалить адресата">
+                                <fa:ImageAwesome Height="16" Icon="MinusCircle" Foreground="Red"/>
+                            </Button>
+                            <Button ToolTip="Редактировать список адресатов">
+                                <fa:ImageAwesome Icon="AddressBook" Height="16" Foreground="CornflowerBlue"/>
+                            </Button>
 
                         </ToolBar>
                     </ToolBarTray>
@@ -143,7 +143,7 @@
                     <StackPanel Grid.Column="0" HorizontalAlignment="Left" Width="192.203">
                         <Calendar/>
                         <TextBlock Text="Время"/>
-                        <TextBox/>
+                        <cx:TimePicker/>
                         <Button Content="Запланировать"/>
                         <Button Content="Отправить немедленно"/>
                     </StackPanel>

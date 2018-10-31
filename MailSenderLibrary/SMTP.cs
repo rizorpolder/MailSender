@@ -12,7 +12,7 @@ namespace MailSenderLibrary
        
             servers = new Dictionary<string, int>()
         {
-           {"smtp.yandex.ru",465} ,
+           {"smtp.yandex.ru", 465} ,
            {"smtp.gmail.com",465},
            {"smpt.mail.ru",465}
         };
@@ -22,5 +22,5 @@ namespace MailSenderLibrary
             return servers[value];
         }
     }
-
+  
 }
