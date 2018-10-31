@@ -74,9 +74,8 @@
                             
                             <TextBlock Text="Серверы"  VerticalAlignment="Center" Margin="5,0"/>
                             <!--Серверы-->
-                            <ComboBox Width="150" Margin="5,0"  HorizontalContentAlignment="Left" >
-                                <Label>Список СМТП </Label>
-                            </ComboBox>
+                            <ComboBox Name="SMTPComboBox" Width="150" Margin="5,0" HorizontalContentAlignment="Left" Text="SMTP Сервер" AllowDrop="True" IsEditable="True" IsReadOnly="True" ItemsSource="{x:Static lib:SMTP.servers}" />
+                              
 
 
                             <Button ToolTip="Добавить отправителя">

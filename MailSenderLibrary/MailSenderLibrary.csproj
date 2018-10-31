@@ -59,6 +59,7 @@
       <DependentUpon>Recipients.dbml</DependentUpon>
     </Compile>
     <Compile Include="Senders.cs" />
+    <Compile Include="SMTP.cs" />
     <Compile Include="User.cs" />
   </ItemGroup>
   <ItemGroup>
