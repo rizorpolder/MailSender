@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataBase.cs" />
+    <Compile Include="IDataAccessService.cs" />
     <Compile Include="ListOfUsers.cs" />
     <Compile Include="MailSender.cs" />
     <Compile Include="MailService.cs" />

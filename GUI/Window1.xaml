@@ -5,11 +5,12 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
     xmlns:l ="clr-namespace:GUI"
     xmlns:lib="clr-namespace:MailSenderLibrary;assembly=MailSenderLibrary"
-        xmlns:cx="http://schemas.xceed.com/wpf/xaml/toolkit"
-        xmlns:fa="http://schemas.fontawesome.io/icons/"
-    
+    xmlns:cx="http://schemas.xceed.com/wpf/xaml/toolkit"
+    xmlns:fa="http://schemas.fontawesome.io/icons/"
+    xmlns:view="clr-namespace:GUI.View"
+        DataContext="{Binding MainWindow, Source={StaticResource Locator}}"
    
-    Title="E-mail sender" Height="600" Width="800">
+    Title="{Binding title}" Height="600" Width="800">
     <DockPanel>
         <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
             <Menu DockPanel.Dock="Top">
@@ -26,13 +27,13 @@
             </Menu>
         </StackPanel>
         <StatusBar DockPanel.Dock="Bottom">
-            <TextBlock>Ready!</TextBlock>
+            <!--<TextBlock Text="{Binding DataAccessService, FallbackValue=-,TargetNullValue=[null]}"></TextBlock>-->
         </StatusBar>
         <TabControl>
             <!--Группа рассылки-->
             <TabItem Header="Группа рассылки">
                 <Grid>
-                    <Grid.RowDefinitions>
+                    <Grid.RowDefinitions> 
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition/>
@@ -116,11 +117,13 @@
 
                         </ToolBar>
                     </ToolBarTray>
-                    <GroupBox Grid.Row="2" Header="Группы">
-                        <GroupBox.Resources>
-                            <lib:DataBase x:Key="DataBaseObject"/>
-                        </GroupBox.Resources>
-                        <DataGrid ItemsSource="{Binding Recipients, Source={StaticResource DataBaseObject}}" 
+                    <Grid Grid.Row="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="4*"/>
+                            <ColumnDefinition Width="2*"/>
+                        </Grid.ColumnDefinitions>
+                    <GroupBox Header="Группы">
+                        <!--<DataGrid ItemsSource="{Binding Recipients}" 
                                   AutoGenerateColumns="False" VerticalGridLinesBrush="LightGray"  HorizontalGridLinesBrush="{x:Null}"
                                   AlternatingRowBackground="LightBlue">
                             <DataGrid.Columns>
@@ -129,8 +132,13 @@
                                 <DataGridTextColumn Header="Email" Binding="{Binding Email}"/>
                                 <DataGridTextColumn Header="Comment" Binding="{Binding Comment}" Width="Auto"/>
                             </DataGrid.Columns>
-                        </DataGrid>
+                        </DataGrid>-->
+
+                        <view:RecipientsView/>
                     </GroupBox>
+                        <view:RecipientEditView Grid.Column="1"/>
+                        <GridSplitter Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Left" Width="3" Foreground="Transparent"/>
+                    </Grid>
                 </Grid>
             </TabItem>
             <!--Планировщик-->
