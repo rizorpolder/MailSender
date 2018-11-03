@@ -9,13 +9,17 @@
     <DockPanel>
         <StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom">       
             
-            <Button DockPanel.Dock="Bottom" 
+            <Button  
                 Command="{Binding CreateRecipient}" 
                 Content="Создать" HorizontalAlignment="Center" Margin="5,5" Padding="10,3"/>
 
-            <Button DockPanel.Dock="Bottom" 
+            <Button 
                 Command="{Binding UpdateRecipient}" CommandParameter="{Binding CurrentRecipient}"
                 Content="Обновить" HorizontalAlignment="Center" Margin="0,5" Padding="10,3"/>
+            
+            <Button 
+                Command="{Binding RemoveRecipient}" CommandParameter="{Binding CurrentRecipient}"
+                Content="Удалить" HorizontalAlignment="Center" Margin="5,5" Padding="10,3"/>
         </StackPanel>
 
         <GroupBox Header="Получатель">

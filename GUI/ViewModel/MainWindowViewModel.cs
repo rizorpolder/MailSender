@@ -32,6 +32,8 @@ namespace GUI.ViewModel
         public ICommand UpdateRecipient { get; }
 
         public ICommand CreateRecipient { get; }
+
+        public ICommand RemoveRecipient { get; }
         public MainWindowViewModel(IDataAccessService DataAccessService)
         {
             _DataAccessService = DataAccessService;
@@ -39,6 +41,7 @@ namespace GUI.ViewModel
             UpdateCommand = new RelayCommand(OnUpdateCommandExecuted, UpdateDataCommandCanExecute);
             UpdateRecipient = new RelayCommand<Recipient>(OnUpadteRecipientExecuted, UpdateRecipientCanExecute);
             CreateRecipient = new RelayCommand<Recipient>(OnCreateRecipientExecuted);
+            RemoveRecipient = new RelayCommand<Recipient>(OnRemoveRecipientExecuted);
         }
         private void OnUpdateCommandExecuted()
         {
@@ -60,7 +63,13 @@ namespace GUI.ViewModel
         {
             if (_DataAccessService.CreateRecipient(recipient) > 0)
                 Recipients.Add(recipient);
-        } 2:17
+        } 
+
+        private void OnRemoveRecipientExecuted(Recipient recipient)
+        {
+            if (_DataAccessService.RemoveRecipient(recipient) > 0)
+                Recipients.Remove(recipient);
+        }
 
     }
 }

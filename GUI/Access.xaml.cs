@@ -23,14 +23,6 @@ namespace GUI
         {
             InitializeComponent();
 
-            LoginButton.Click += delegate
-            {
-                MailSender access = new MailSender();
-                access.Access(Login.Text, Password.Password, SMTPServer.Text, Port.Text);
-                
-                Close();
-            };
-            ExitButton.Click += delegate { Close(); };
         }
     }
 }

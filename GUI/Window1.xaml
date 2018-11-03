@@ -105,11 +105,11 @@
                         <ToolBar FontSize="12">
 
                             <TextBlock Text="Список адресов" VerticalAlignment="Center" Margin="5,0"/>
-                            <Button ToolTip="Добавить адресата">
+                            <Button ToolTip="Добавить адресата"  Command="{Binding UpdateRecipient}" CommandParameter="{Binding CurrentRecipient}">
                                 <fa:ImageAwesome Height="16" Icon="PlusCircle" Foreground="Lime"></fa:ImageAwesome>
                             </Button>
-                            <Button ToolTip="Удалить адресата">
-                                <fa:ImageAwesome Height="16" Icon="MinusCircle" Foreground="Red"/>
+                            <Button ToolTip="Удалить адресата"  Command="{Binding RemoveRecipient}" CommandParameter="{Binding CurrentRecipient}">
+                                <fa:ImageAwesome Height="16" Icon="MinusCircle" Foreground="Red" />
                             </Button>
                             <Button ToolTip="Редактировать список адресатов">
                                 <fa:ImageAwesome Icon="AddressBook" Height="16" Foreground="CornflowerBlue"/>
