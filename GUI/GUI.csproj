@@ -92,6 +92,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Mybuttons.xaml.cs">
+      <DependentUpon>Mybuttons.xaml</DependentUpon>
+    </Compile>
     <Compile Include="TabElementControl.xaml.cs">
       <DependentUpon>TabElementControl.xaml</DependentUpon>
     </Compile>
@@ -102,6 +105,10 @@
     <Page Include="Info.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Mybuttons.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\RecipientEditView.xaml">
       <SubType>Designer</SubType>
