@@ -24,6 +24,7 @@
         <Button 
             Command="{Binding UpdateCommand}"
             DockPanel.Dock="Bottom" Content="Обновить" HorizontalAlignment="Center" Padding="10,5" Margin="0,5"/>
+        
         <DataGrid ItemsSource="{Binding Recipients}" SelectedItem="{Binding CurrentRecipient}"
             AutoGenerateColumns="False" IsReadOnly="True" AlternatingRowBackground="SkyBlue" HorizontalGridLinesBrush="{x:Null}">
             <DataGrid.Columns>
@@ -33,5 +34,15 @@
                     <DataGridTextColumn Header="Comment" Width="*" Binding="{Binding Comment, TargetNullValue=[null]}"/>
             </DataGrid.Columns>
         </DataGrid>
+        <!--<ListView ItemsSource="{Binding Recipients}" SelectedItem="{Binding CurrentRecipient}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}"/>
+                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}"/>
+                    <GridViewColumn Header="Email" DisplayMemberBinding="{Binding Email}"/>
+                    <GridViewColumn Header="Комментарий" DisplayMemberBinding="{Binding Comment}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>-->
     </DockPanel>
 </UserControl>
