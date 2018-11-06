@@ -5,7 +5,7 @@
              xmlns:m="http://schemas.openxmlformats.org/markup-compatibility/2006"  m:Ignorable="d"
              xmlns:vm="clr-namespace:GUI.ViewModel"
              xmlns:local="clr-namespace:GUI" 
-             StartupUri="Window1.xaml" 
+             StartupUri="TestWindow.xaml" 
              
              >
   <Application.Resources>

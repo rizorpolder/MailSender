@@ -41,6 +41,7 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataBase.cs" />
@@ -59,6 +60,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Recipients.dbml</DependentUpon>
     </Compile>
+    <Compile Include="Scheduler.cs" />
     <Compile Include="Senders.cs" />
     <Compile Include="SMTP.cs" />
   </ItemGroup>
