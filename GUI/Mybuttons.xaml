@@ -1,0 +1,23 @@
+﻿<UserControl x:Class="GUI.Mybuttons"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:GUI"
+             mc:Ignorable="d" 
+             xmlns:fa="http://schemas.fontawesome.io/icons/"
+             d:DesignHeight="35" d:DesignWidth="110">
+    <Grid>
+        <StackPanel Orientation="Horizontal" Height="35">
+            <Button ToolTip="Добавить отправителя" Margin="5,5">
+                <fa:ImageAwesome Height="Auto" Icon="PlusCircle" Foreground="Lime"></fa:ImageAwesome>
+            </Button>
+            <Button ToolTip="Удалить отправителя"  Margin="5,5" >
+                <fa:ImageAwesome Height="Auto" Icon="MinusCircle" Foreground="Red"/>
+            </Button>
+            <Button ToolTip="Редактировать"   Margin="5,5">
+                <fa:ImageAwesome Height="Auto" Icon="Edit" Foreground="DarkBlue"/>
+            </Button>
+        </StackPanel>
+    </Grid>
+</UserControl>

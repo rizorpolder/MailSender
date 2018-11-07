@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -9,20 +10,19 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
-using MailSenderLibrary;
 
-namespace GUI
+namespace GUI.View
 {
     /// <summary>
-    /// Логика взаимодействия для Access.xaml
+    /// Логика взаимодействия для RecipientEditView.xaml
     /// </summary>
-    public partial class Access : Window
+    public partial class RecipientEditView : UserControl
     {
-        public Access()
+        public RecipientEditView()
         {
             InitializeComponent();
-
         }
     }
 }

@@ -5,9 +5,13 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
     xmlns:l ="clr-namespace:GUI"
     xmlns:lib="clr-namespace:MailSenderLibrary;assembly=MailSenderLibrary"
+    xmlns:cx="http://schemas.xceed.com/wpf/xaml/toolkit"
+    xmlns:fa="http://schemas.fontawesome.io/icons/"
+    xmlns:view="clr-namespace:GUI.View"
     
+        DataContext="{Binding MainWindow, Source={StaticResource Locator}}"
    
-    Title="E-mail sender" Height="600" Width="800">
+    Title="{Binding title}" Height="600" Width="800">
     <DockPanel>
         <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
             <Menu DockPanel.Dock="Top">
@@ -24,13 +28,13 @@
             </Menu>
         </StackPanel>
         <StatusBar DockPanel.Dock="Bottom">
-            <TextBlock>Ready!</TextBlock>
+            <!--<TextBlock Text="{Binding DataAccessService, FallbackValue=-,TargetNullValue=[null]}"></TextBlock>-->
         </StatusBar>
         <TabControl>
             <!--Группа рассылки-->
             <TabItem Header="Группа рассылки">
                 <Grid>
-                    <Grid.RowDefinitions>
+                    <Grid.RowDefinitions> 
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition/>
@@ -58,43 +62,40 @@
                                 </ComboBox.ItemTemplate>
                             </ComboBox>
 
-
-                            <Button ToolTip="Добавить отправителя">
-                                <StackPanel Orientation="Horizontal">
-                                    <!--Image Source="" -->
-                                    <TextBlock Text="Добваить"/>
-                                </StackPanel>
+                            <l:Mybuttons x:Name="Senders"/>
+                            <!--<Button ToolTip="Добавить отправителя">
+                                <fa:ImageAwesome Height="16" Icon="PlusCircle" Foreground="Lime"></fa:ImageAwesome>
+                                </Button>
+                            <Button ToolTip="Удалить отправителя" >
+                                 <fa:ImageAwesome Height="16" Icon="MinusCircle" Foreground="Red"/>
                             </Button>
-                            <Button ToolTip="Удалить отправителя"  Content="Удалить"></Button>
-                            <!--Image-->
-                            <Button ToolTip="Редактировать" Content="Редактировать"></Button>
+                            <Button ToolTip="Редактировать" >
+                                <fa:ImageAwesome Height="16" Icon="Edit" Foreground="DarkBlue"/>
+                            </Button>-->
 
                         </ToolBar>
                         <ToolBar Band="1" FontSize="12">
                             
                             <TextBlock Text="Серверы"  VerticalAlignment="Center" Margin="5,0"/>
                             <!--Серверы-->
-                            <ComboBox Width="150" Margin="5,0"  HorizontalContentAlignment="Left" >
-                                <Label>Список СМТП </Label>
-                            </ComboBox>
-
-
-                            <Button ToolTip="Добавить отправителя">
-                                <StackPanel Orientation="Horizontal">
-                                    <!--Image Source="" -->
-                                    <TextBlock Text="Добваить"/>
-                                </StackPanel>
+                            <ComboBox Name="SMTPComboBox" Width="150" Margin="5,0" HorizontalContentAlignment="Left" Text="SMTP Сервер" AllowDrop="True" IsEditable="True" IsReadOnly="True" ItemsSource="{x:Static lib:SMTP.servers}"/> 
+                            <l:Mybuttons x:Name="SMPT"/>
+                            <!--<Button ToolTip="Добавить ">
+                                <fa:ImageAwesome Height="16" Icon="PlusCircle" Foreground="Lime"></fa:ImageAwesome>
                             </Button>
-                            <Button ToolTip="Удалить отправителя"  Content="Удалить"></Button>
-                            <!--Image-->
-                            <Button ToolTip="Редактировать" Content="Редактировать"></Button>
-
+                            <Button ToolTip="Удалить сервер" >
+                                <fa:ImageAwesome Height="16" Icon="MinusCircle" Foreground="Red"/>
+                            </Button>
+                            <Button ToolTip="Редактировать" >
+                                <fa:ImageAwesome Height="16" Icon="Edit" Foreground="DarkBlue"/>
+                            </Button>-->
                         </ToolBar>
                         <ToolBar Band="0" BandIndex="1" Width="auto" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left">
                             <Button>
                                 <StackPanel>
-                                    <!--Image Height="16" Source="" -->
-                                    <TextBlock Text="Перейти в планировщик"></TextBlock>
+                                    <Button ToolTip="Перейти в планировщик">
+                                        <fa:ImageAwesome Height="16" Icon="ClockOutline"/>
+                                    </Button>
                                 </StackPanel>
                             </Button>
                         </ToolBar>
@@ -105,23 +106,25 @@
                         <ToolBar FontSize="12">
 
                             <TextBlock Text="Список адресов" VerticalAlignment="Center" Margin="5,0"/>
-                            <Button ToolTip="Добавить отправителя">
-                                <StackPanel Orientation="Horizontal">
-                                    <!--Image Source="" -->
-                                    <TextBlock Text="Добваить"/>
-                                </StackPanel>
+                            <Button ToolTip="Добавить адресата"  Command="{Binding UpdateRecipient}" CommandParameter="{Binding CurrentRecipient}">
+                                <fa:ImageAwesome Height="16" Icon="PlusCircle" Foreground="Lime"></fa:ImageAwesome>
                             </Button>
-                            <Button ToolTip="Удалить отправителя"  Content="Удалить"></Button>
-                            <!--Image-->
-                            <Button ToolTip="Редактировать" Content="Редактировать"></Button>
+                            <Button ToolTip="Удалить адресата"  Command="{Binding RemoveRecipient}" CommandParameter="{Binding CurrentRecipient}">
+                                <fa:ImageAwesome Height="16" Icon="MinusCircle" Foreground="Red" />
+                            </Button>
+                            <Button ToolTip="Редактировать список адресатов">
+                                <fa:ImageAwesome Icon="AddressBook" Height="16" Foreground="CornflowerBlue"/>
+                            </Button>
 
                         </ToolBar>
                     </ToolBarTray>
-                    <GroupBox Grid.Row="2" Header="Группы">
-                        <GroupBox.Resources>
-                            <lib:DataBase x:Key="DataBaseObject"/>
-                        </GroupBox.Resources>
-                        <DataGrid ItemsSource="{Binding Recipients, Source={StaticResource DataBaseObject}}" 
+                    <Grid Grid.Row="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="4*"/>
+                            <ColumnDefinition Width="2*"/>
+                        </Grid.ColumnDefinitions>
+                    <GroupBox Header="Группы">
+                        <!--<DataGrid ItemsSource="{Binding Recipients}" 
                                   AutoGenerateColumns="False" VerticalGridLinesBrush="LightGray"  HorizontalGridLinesBrush="{x:Null}"
                                   AlternatingRowBackground="LightBlue">
                             <DataGrid.Columns>
@@ -130,8 +133,13 @@
                                 <DataGridTextColumn Header="Email" Binding="{Binding Email}"/>
                                 <DataGridTextColumn Header="Comment" Binding="{Binding Comment}" Width="Auto"/>
                             </DataGrid.Columns>
-                        </DataGrid>
+                        </DataGrid>-->
+
+                        <view:RecipientsView/>
                     </GroupBox>
+                        <view:RecipientEditView Grid.Column="1"/>
+                        <GridSplitter Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Left" Width="3" Foreground="Transparent"/>
+                    </Grid>
                 </Grid>
             </TabItem>
             <!--Планировщик-->
@@ -144,7 +152,7 @@
                     <StackPanel Grid.Column="0" HorizontalAlignment="Left" Width="192.203">
                         <Calendar/>
                         <TextBlock Text="Время"/>
-                        <TextBox/>
+                        <cx:TimePicker/>
                         <Button Content="Запланировать"/>
                         <Button Content="Отправить немедленно"/>
                     </StackPanel>
