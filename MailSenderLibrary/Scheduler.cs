@@ -2,17 +2,29 @@
 using System.Collections.ObjectModel;
 using System.Windows.Forms;
 using System.Windows.Threading;
+using System.Linq;
 
 namespace MailSenderLibrary
 {
     public class Scheduler
     {
+        private readonly IDataAccessService _DataAccessService;
 
         DispatcherTimer timer = new DispatcherTimer();
         MailService mailSender;                          // Экземпляр класса отправления писем
         ObservableCollection<DateTime> dtSend;           // Коллекция дат для отправки 
 
-        ObservableCollection<Recipient> emails;          // список получателей
+        //private readonly RecipientsDataContext _Recipients = new RecipientsDataContext();
+        //public IQueryable<Recipient> Recipients => _Recipients.Recipient;
+        
+            // список получателей
+
+
+
+        public Scheduler()
+        {
+
+        }
 
         /// <summary>
         /// Метод возвращающий время и дату в строковом представлении
@@ -58,11 +70,13 @@ namespace MailSenderLibrary
             {
                 if (date.ToShortTimeString() == DateTime.Now.ToShortTimeString())
                 {
-                    mailSender.SendMails(emails);
+                    mailSender.SendMails(Recipients); //получатели
                     timer.Stop();
                     MessageBox.Show("Письма отправлены");
                 }
             }
         }
     }
+
+   
 }
