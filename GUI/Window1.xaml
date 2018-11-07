@@ -8,6 +8,7 @@
     xmlns:cx="http://schemas.xceed.com/wpf/xaml/toolkit"
     xmlns:fa="http://schemas.fontawesome.io/icons/"
     xmlns:view="clr-namespace:GUI.View"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
     
         DataContext="{Binding MainWindow, Source={StaticResource Locator}}"
    
@@ -150,7 +151,7 @@
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
                     <StackPanel Grid.Column="0" HorizontalAlignment="Left" Width="192.203">
-                        <Calendar/>
+                        <Calendar FirstDayOfWeek="Monday" SelectionMode="MultipleRange"/>
                         <TextBlock Text="Время"/>
                         <cx:TimePicker/>
                         <Button Content="Запланировать"/>

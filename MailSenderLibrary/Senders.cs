@@ -1,5 +1,5 @@
 ﻿using System.Collections.ObjectModel;
-using MailSenderLibrary;
+
 
 
 namespace MailSenderLibrary
@@ -13,12 +13,12 @@ namespace MailSenderLibrary
                 new Sender{Name = "Petrov",Email = "Petrov@server.org", Password = PasswordEncoder.Encode("Password2")},
                 new Sender{Name = "Sidorov",Email = "Sidorov@server.org", Password = PasswordEncoder.Encode("Password3")},
             });
-      
+
     }
 
     public class Sender
     {
-        public string Name {get;set;}
+        public string Name { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
     }
