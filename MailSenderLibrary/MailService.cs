@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Net;
 using System.Net.Mail;
+using System.Threading;
 
 namespace MailSenderLibrary
 {
@@ -30,19 +31,29 @@ namespace MailSenderLibrary
             _Login = Login;
             _Password = Password;
         }
-        
 
+        struct SendMailInternalParameter
+        {
+            public string From;
+            public string To;
+        }
+
+        private void SendMailInternal(object parameter)
+        {
+            var p = (SendMailInternalParameter)parameter;
+            SendMail(p.From, p.To)
+        }
 
         /// <summary>
         /// Отправка почты одному получателю
         /// </summary>
         /// <param name="Email">Адрес получателя</param>
-        /// <param name="Name">Адрес отправителя</param>
-        public void SendMail(string Email, string Name)
+        /// <param name="To">Адрес отправителя</param>
+        public void SendMail(string From, string To)
         {
             try
             {
-                using (var message = new MailMessage(Name, Email)
+                using (var message = new MailMessage(To, From)
                 {
                     Subject = _Subject,
                     Body = _Body,
@@ -70,12 +81,28 @@ namespace MailSenderLibrary
         /// Отправка почты списку получателей
         /// </summary>
         /// <param name="recipients"> Список получателей</param>
-        public void SendMails(ObservableCollection<Recipient> recipients)
+        public void SendMails(string From, ObservableCollection<Recipient> recipients)
         {
             foreach (Recipient recepient in recipients)
-            {
-                SendMail(recepient.Email, recepient.Name); // обращение к методу выше
-            }
+                    SendMail(From, recepient.Email); // обращение к методу выше
+        }
+
+        public void SendMailsParallel(string From, ObservableCollection<Recipient> recipients)
+        {
+            foreach (Recipient recepient in recipients)
+                ThreadPool.QueueUserWorkItem(p =>
+                {
+                    SendMail(From, recepient.Email);
+                });
+
+
+            //foreach (Recipient recepient in recipients)
+            //    ThreadPool.QueueUserWorkItem(SendMailInternal, new SendMailInternalParameter
+            //    {
+            //        From=From,
+
+            //        To = recepient.Email
+            //    });
         }
     }
 }
