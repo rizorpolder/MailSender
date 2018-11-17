@@ -11,6 +11,11 @@ using System.Windows.Input;
 
 namespace GUI.ViewModel
 {
+
+    public class Recipient { } 
+
+
+
     public class MainWindowViewModel:ViewModelBase
     {
         private readonly IDataAccessService _DataAccessService;
@@ -45,7 +50,7 @@ namespace GUI.ViewModel
         }
         private void OnUpdateCommandExecuted()
         {
-            Recipients = _DataAccessService.GetRecipients();
+            //Recipients = _DataAccessService.GetRecipients();
             RaisePropertyChanged(nameof(Recipients));
         }
 
@@ -61,14 +66,14 @@ namespace GUI.ViewModel
         }
         private void OnUpadteRecipientExecuted(Recipient recipient)
         {
-            if (_DataAccessService.CreateRecipient(recipient) > 0)
-                Recipients.Add(recipient);
+            //if (_DataAccessService.CreateRecipient(recipient) > 0)
+            //    Recipients.Add(recipient);
         } 
 
         private void OnRemoveRecipientExecuted(Recipient recipient)
         {
-            if (_DataAccessService.RemoveRecipient(recipient) > 0)
-                Recipients.Remove(recipient);
+        //    if (_DataAccessService.RemoveRecipient(recipient) > 0)
+        //        Recipients.Remove(recipient);
         }
 
     }

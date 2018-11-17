@@ -41,7 +41,7 @@ namespace MailSenderLibrary
         private void SendMailInternal(object parameter)
         {
             var p = (SendMailInternalParameter)parameter;
-            SendMail(p.From, p.To)
+            SendMail(p.From, p.To);
         }
 
         /// <summary>
@@ -81,19 +81,19 @@ namespace MailSenderLibrary
         /// Отправка почты списку получателей
         /// </summary>
         /// <param name="recipients"> Список получателей</param>
-        public void SendMails(string From, ObservableCollection<Recipient> recipients)
-        {
-            foreach (Recipient recepient in recipients)
-                    SendMail(From, recepient.Email); // обращение к методу выше
-        }
+        //public void SendMails(string From, ObservableCollection<Recipient> recipients)
+        //{
+        //    //foreach (Recipient recepient in recipients)
+        //    //        SendMail(From, recepient.Email); // обращение к методу выше
+        //}
 
-        public void SendMailsParallel(string From, ObservableCollection<Recipient> recipients)
-        {
-            foreach (Recipient recepient in recipients)
-                ThreadPool.QueueUserWorkItem(p =>
-                {
-                    SendMail(From, recepient.Email);
-                });
+        //public void SendMailsParallel(string From, ObservableCollection<Recipient> recipients)
+        //{
+        //    foreach (Recipient recepient in recipients)
+        //        ThreadPool.QueueUserWorkItem(p =>
+        //        {
+        //            //SendMail(From, recepient.Email);
+        //        });
 
 
             //foreach (Recipient recepient in recipients)
@@ -103,6 +103,6 @@ namespace MailSenderLibrary
 
             //        To = recepient.Email
             //    });
-        }
+        //}
     }
 }

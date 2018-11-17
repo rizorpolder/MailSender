@@ -1,0 +1,457 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="SpamDatabase.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="SpamDatabaseStoreContainer">
+    <EntitySet Name="ServersSet" EntityType="SpamDatabase.Store.ServersSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="RecepientSet" EntityType="SpamDatabase.Store.RecepientSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="SheluderTaskSet" EntityType="SpamDatabase.Store.SheluderTaskSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="SenderSet" EntityType="SpamDatabase.Store.SenderSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="EmailSet" EntityType="SpamDatabase.Store.EmailSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="MailingListSet" EntityType="SpamDatabase.Store.MailingListSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="EmailSheluderTask" EntityType="SpamDatabase.Store.EmailSheluderTask" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="RecepientMailingList" EntityType="SpamDatabase.Store.RecepientMailingList" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="ServersSheluderTask" Association="SpamDatabase.Store.ServersSheluderTask">
+      <End Role="Servers" EntitySet="ServersSet" />
+      <End Role="SheluderTask" EntitySet="SheluderTaskSet" />
+    </AssociationSet>
+    <AssociationSet Name="MailingListSheluderTask" Association="SpamDatabase.Store.MailingListSheluderTask">
+      <End Role="MailingList" EntitySet="MailingListSet" />
+      <End Role="SheluderTask" EntitySet="SheluderTaskSet" />
+    </AssociationSet>
+    <AssociationSet Name="SenderSheluderTask" Association="SpamDatabase.Store.SenderSheluderTask">
+      <End Role="Sender" EntitySet="SenderSet" />
+      <End Role="SheluderTask" EntitySet="SheluderTaskSet" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EmailSheluderTask_Email" Association="SpamDatabase.Store.FK_EmailSheluderTask_Email">
+      <End Role="Email" EntitySet="EmailSet" />
+      <End Role="EmailSheluderTask" EntitySet="EmailSheluderTask" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EmailSheluderTask_SheluderTask" Association="SpamDatabase.Store.FK_EmailSheluderTask_SheluderTask">
+      <End Role="SheluderTask" EntitySet="SheluderTaskSet" />
+      <End Role="EmailSheluderTask" EntitySet="EmailSheluderTask" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RecepientMailingList_Recepient" Association="SpamDatabase.Store.FK_RecepientMailingList_Recepient">
+      <End Role="Recepient" EntitySet="RecepientSet" />
+      <End Role="RecepientMailingList" EntitySet="RecepientMailingList" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RecepientMailingList_MailingList" Association="SpamDatabase.Store.FK_RecepientMailingList_MailingList">
+      <End Role="MailingList" EntitySet="MailingListSet" />
+      <End Role="RecepientMailingList" EntitySet="RecepientMailingList" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="ServersSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Address" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Port" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="UseSSL" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="RecepientSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SheluderTaskSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Time" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Servers_Id" Type="int" Nullable="false" />
+    <Property Name="MailingList_Id" Type="int" Nullable="true" />
+    <Property Name="Sender_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SenderSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Decription" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Login" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="EmailSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Title" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Body" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MailingListSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="EmailSheluderTask">
+    <Key>
+      <PropertyRef Name="Emails_Id" />
+      <PropertyRef Name="SheluderTask_Id" />
+    </Key>
+    <Property Name="Emails_Id" Type="int" Nullable="false" />
+    <Property Name="SheluderTask_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="RecepientMailingList">
+    <Key>
+      <PropertyRef Name="Recepients_Id" />
+      <PropertyRef Name="MailingLists_Id" />
+    </Key>
+    <Property Name="Recepients_Id" Type="int" Nullable="false" />
+    <Property Name="MailingLists_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="ServersSheluderTask">
+    <End Role="Servers" Type="SpamDatabase.Store.ServersSet" Multiplicity="1" />
+    <End Role="SheluderTask" Type="SpamDatabase.Store.SheluderTaskSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Servers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SheluderTask">
+        <PropertyRef Name="Servers_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="MailingListSheluderTask">
+    <End Role="MailingList" Type="SpamDatabase.Store.MailingListSet" Multiplicity="0..1" />
+    <End Role="SheluderTask" Type="SpamDatabase.Store.SheluderTaskSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MailingList">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SheluderTask">
+        <PropertyRef Name="MailingList_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="SenderSheluderTask">
+    <End Role="Sender" Type="SpamDatabase.Store.SenderSet" Multiplicity="1" />
+    <End Role="SheluderTask" Type="SpamDatabase.Store.SheluderTaskSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Sender">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SheluderTask">
+        <PropertyRef Name="Sender_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EmailSheluderTask_Email">
+    <End Role="Email" Type="SpamDatabase.Store.EmailSet" Multiplicity="1" />
+    <End Role="EmailSheluderTask" Type="SpamDatabase.Store.EmailSheluderTask" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Email">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="EmailSheluderTask">
+        <PropertyRef Name="Emails_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EmailSheluderTask_SheluderTask">
+    <End Role="EmailSheluderTask" Type="SpamDatabase.Store.EmailSheluderTask" Multiplicity="*" />
+    <End Role="SheluderTask" Type="SpamDatabase.Store.SheluderTaskSet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="SheluderTask">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="EmailSheluderTask">
+        <PropertyRef Name="SheluderTask_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RecepientMailingList_Recepient">
+    <End Role="Recepient" Type="SpamDatabase.Store.RecepientSet" Multiplicity="1" />
+    <End Role="RecepientMailingList" Type="SpamDatabase.Store.RecepientMailingList" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Recepient">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="RecepientMailingList">
+        <PropertyRef Name="Recepients_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RecepientMailingList_MailingList">
+    <End Role="RecepientMailingList" Type="SpamDatabase.Store.RecepientMailingList" Multiplicity="*" />
+    <End Role="MailingList" Type="SpamDatabase.Store.MailingListSet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="MailingList">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="RecepientMailingList">
+        <PropertyRef Name="MailingLists_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="SpamData" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="SpamDatabase" annotation:LazyLoadingEnabled="false">
+          <EntitySet Name="ServersSet" EntityType="SpamData.Servers" />
+          <EntitySet Name="RecepientSet" EntityType="SpamData.Recepient" />
+          <EntitySet Name="SheluderTaskSet" EntityType="SpamData.SheluderTask" />
+          <EntitySet Name="SenderSet" EntityType="SpamData.Sender" />
+          <EntitySet Name="EmailSet" EntityType="SpamData.Email" />
+          <EntitySet Name="MailingListSet" EntityType="SpamData.MailingList" />
+          <AssociationSet Name="ServersSheluderTask" Association="SpamData.ServersSheluderTask">
+            <End Role="Servers" EntitySet="ServersSet" />
+            <End Role="SheluderTask" EntitySet="SheluderTaskSet" />
+          </AssociationSet>
+          <AssociationSet Name="MailingListSheluderTask" Association="SpamData.MailingListSheluderTask">
+            <End Role="MailingList" EntitySet="MailingListSet" />
+            <End Role="SheluderTask" EntitySet="SheluderTaskSet" />
+          </AssociationSet>
+          <AssociationSet Name="SenderSheluderTask" Association="SpamData.SenderSheluderTask">
+            <End Role="Sender" EntitySet="SenderSet" />
+            <End Role="SheluderTask" EntitySet="SheluderTaskSet" />
+          </AssociationSet>
+          <AssociationSet Name="EmailSheluderTask" Association="SpamData.EmailSheluderTask">
+            <End Role="Email" EntitySet="EmailSet" />
+            <End Role="SheluderTask" EntitySet="SheluderTaskSet" />
+          </AssociationSet>
+          <AssociationSet Name="RecepientMailingList" Association="SpamData.RecepientMailingList">
+            <End Role="Recepient" EntitySet="RecepientSet" />
+            <End Role="MailingList" EntitySet="MailingListSet" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Servers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="false" />
+          <Property Name="Address" Type="String" Nullable="false" />
+          <Property Name="Port" Type="String" Nullable="false" />
+          <Property Name="UseSSL" Type="String" Nullable="false" />
+          <NavigationProperty Name="SheluderTasks" Relationship="SpamData.ServersSheluderTask" FromRole="Servers" ToRole="SheluderTask" />
+        </EntityType>
+        <EntityType Name="Recepient">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <Property Name="Email" Type="String" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="false" />
+          <NavigationProperty Name="MailingLists" Relationship="SpamData.RecepientMailingList" FromRole="Recepient" ToRole="MailingList" />
+        </EntityType>
+        <EntityType Name="SheluderTask">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <Property Name="Time" Type="String" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="false" />
+          <NavigationProperty Name="Servers" Relationship="SpamData.ServersSheluderTask" FromRole="SheluderTask" ToRole="Servers" />
+          <NavigationProperty Name="MailingList" Relationship="SpamData.MailingListSheluderTask" FromRole="SheluderTask" ToRole="MailingList" />
+          <NavigationProperty Name="Sender" Relationship="SpamData.SenderSheluderTask" FromRole="SheluderTask" ToRole="Sender" />
+          <NavigationProperty Name="Emails" Relationship="SpamData.EmailSheluderTask" FromRole="SheluderTask" ToRole="Email" />
+        </EntityType>
+        <EntityType Name="Sender">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <Property Name="Email" Type="String" Nullable="false" />
+          <Property Name="Decription" Type="String" Nullable="false" />
+          <Property Name="Login" Type="String" Nullable="false" />
+          <Property Name="Password" Type="String" Nullable="false" />
+          <NavigationProperty Name="SheluderTasks" Relationship="SpamData.SenderSheluderTask" FromRole="Sender" ToRole="SheluderTask" />
+        </EntityType>
+        <EntityType Name="Email">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" Nullable="false" />
+          <Property Name="Body" Type="String" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="false" />
+          <NavigationProperty Name="SheluderTask" Relationship="SpamData.EmailSheluderTask" FromRole="Email" ToRole="SheluderTask" />
+        </EntityType>
+        <EntityType Name="MailingList">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="false" />
+          <NavigationProperty Name="SheluderTask" Relationship="SpamData.MailingListSheluderTask" FromRole="MailingList" ToRole="SheluderTask" />
+          <NavigationProperty Name="Recepients" Relationship="SpamData.RecepientMailingList" FromRole="MailingList" ToRole="Recepient" />
+          </EntityType>
+        <Association Name="ServersSheluderTask">
+          <End Type="SpamData.Servers" Role="Servers" Multiplicity="1" />
+          <End Type="SpamData.SheluderTask" Role="SheluderTask" Multiplicity="*" />
+        </Association>
+        <Association Name="MailingListSheluderTask">
+          <End Type="SpamData.MailingList" Role="MailingList" Multiplicity="0..1" />
+          <End Type="SpamData.SheluderTask" Role="SheluderTask" Multiplicity="*" />
+        </Association>
+        <Association Name="SenderSheluderTask">
+          <End Type="SpamData.Sender" Role="Sender" Multiplicity="1" />
+          <End Type="SpamData.SheluderTask" Role="SheluderTask" Multiplicity="*" />
+        </Association>
+        <Association Name="EmailSheluderTask">
+          <End Type="SpamData.Email" Role="Email" Multiplicity="*" />
+          <End Type="SpamData.SheluderTask" Role="SheluderTask" Multiplicity="*" />
+        </Association>
+        <Association Name="RecepientMailingList">
+          <End Type="SpamData.Recepient" Role="Recepient" Multiplicity="*" />
+          <End Type="SpamData.MailingList" Role="MailingList" Multiplicity="*" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="SpamDatabaseStoreContainer" CdmEntityContainer="SpamDatabase">
+    <EntitySetMapping Name="ServersSet">
+      <EntityTypeMapping TypeName="IsTypeOf(SpamData.Servers)">
+        <MappingFragment StoreEntitySet="ServersSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Port" ColumnName="Port" />
+          <ScalarProperty Name="UseSSL" ColumnName="UseSSL" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RecepientSet">
+      <EntityTypeMapping TypeName="IsTypeOf(SpamData.Recepient)">
+        <MappingFragment StoreEntitySet="RecepientSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SheluderTaskSet">
+      <EntityTypeMapping TypeName="IsTypeOf(SpamData.SheluderTask)">
+        <MappingFragment StoreEntitySet="SheluderTaskSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Time" ColumnName="Time" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SenderSet">
+      <EntityTypeMapping TypeName="IsTypeOf(SpamData.Sender)">
+        <MappingFragment StoreEntitySet="SenderSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Decription" ColumnName="Decription" />
+          <ScalarProperty Name="Login" ColumnName="Login" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EmailSet">
+      <EntityTypeMapping TypeName="IsTypeOf(SpamData.Email)">
+        <MappingFragment StoreEntitySet="EmailSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Body" ColumnName="Body" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MailingListSet">
+      <EntityTypeMapping TypeName="IsTypeOf(SpamData.MailingList)">
+        <MappingFragment StoreEntitySet="MailingListSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="ServersSheluderTask" TypeName="SpamData.ServersSheluderTask" StoreEntitySet="SheluderTaskSet">
+      <EndProperty Name="Servers">
+        <ScalarProperty Name="Id" ColumnName="Servers_Id" />
+      </EndProperty>
+      <EndProperty Name="SheluderTask">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="MailingListSheluderTask" TypeName="SpamData.MailingListSheluderTask" StoreEntitySet="SheluderTaskSet">
+      <EndProperty Name="MailingList">
+        <ScalarProperty Name="Id" ColumnName="MailingList_Id" />
+      </EndProperty>
+      <EndProperty Name="SheluderTask">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+      <Condition ColumnName="MailingList_Id" IsNull="false" />
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="SenderSheluderTask" TypeName="SpamData.SenderSheluderTask" StoreEntitySet="SheluderTaskSet">
+      <EndProperty Name="Sender">
+        <ScalarProperty Name="Id" ColumnName="Sender_Id" />
+      </EndProperty>
+      <EndProperty Name="SheluderTask">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="EmailSheluderTask" TypeName="SpamData.EmailSheluderTask" StoreEntitySet="EmailSheluderTask">
+      <EndProperty Name="Email">
+        <ScalarProperty Name="Id" ColumnName="Emails_Id" />
+      </EndProperty>
+      <EndProperty Name="SheluderTask">
+        <ScalarProperty Name="Id" ColumnName="SheluderTask_Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="RecepientMailingList" TypeName="SpamData.RecepientMailingList" StoreEntitySet="RecepientMailingList">
+      <EndProperty Name="Recepient">
+        <ScalarProperty Name="Id" ColumnName="Recepients_Id" />
+      </EndProperty>
+      <EndProperty Name="MailingList">
+        <ScalarProperty Name="Id" ColumnName="MailingLists_Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

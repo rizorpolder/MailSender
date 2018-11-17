@@ -49,7 +49,7 @@ namespace MailSenderLibrary
         /// <param name="dtSend">время отправки</param>
         /// <param name="mailSender"> Класс отправщика почты</param>
         /// <param name="recipients"> получатели</param>
-        public void SendEmails(ObservableCollection<DateTime> dtSend, MailService mailSender, ObservableCollection<Recipient> recipients)
+        public void SendEmails(ObservableCollection<DateTime> dtSend, MailService mailSender/*, ObservableCollection<Recipient> recipients*/)
         {
             this.mailSender = mailSender;
             this.dtSend = dtSend;
@@ -70,7 +70,7 @@ namespace MailSenderLibrary
             {
                 if (date.ToShortTimeString() == DateTime.Now.ToShortTimeString())
                 {
-                    mailSender.SendMails(Recipients); //получатели
+                    //mailSender.SendMails(Recipients); //получатели
                     timer.Stop();
                     MessageBox.Show("Письма отправлены");
                 }
