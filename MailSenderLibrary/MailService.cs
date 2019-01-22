@@ -41,7 +41,7 @@ namespace MailSenderLibrary
         private void SendMailInternal(object parameter)
         {
             var p = (SendMailInternalParameter)parameter;
-            SendMail(p.From, p.To)
+            SendMail(p.From, p.To);
         }
 
         /// <summary>
